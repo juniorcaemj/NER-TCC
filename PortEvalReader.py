@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import re
-from unidecode import unidecode
-import numpy as np
 import codecs
+import re
+
+import numpy as np
+from unidecode import unidecode
 
 """
 Functions to read in the files from the GermEval contest, 
@@ -161,7 +162,7 @@ def createNumpyArrayAndCharData(sentences, windowsize, word2Idx, label2Idx, max_
                         charIndices.append(1)
                     for i in range(0,(max_charlen)):
                         charIndices.append(0)
-                    for i in range(0,windowsize):
+                    for j in range(0,windowsize):
                         charIndices.append(2)
                     continue
 
@@ -177,7 +178,7 @@ def createNumpyArrayAndCharData(sentences, windowsize, word2Idx, label2Idx, max_
                     wordIdx = unknownIdx
                     unknownWordCount += 1
 
-                for j in range(0,windowsize):
+                for i in range(0,windowsize):
                     charIndices.append(1)
                 for i in word:
                     if i not in char2Idx:
@@ -186,7 +187,7 @@ def createNumpyArrayAndCharData(sentences, windowsize, word2Idx, label2Idx, max_
                         idx += 1
                     else:
                         charIndices.append(char2Idx[i])
-                while (len(charIndices) % (max_charlen)) != 0:
+                while (len(charIndices) % (max_charlen+(windowsize*2))) != max_charlen+windowsize:
                     charIndices.append(0)
                 for j in range(0,windowsize):
                     charIndices.append(2)

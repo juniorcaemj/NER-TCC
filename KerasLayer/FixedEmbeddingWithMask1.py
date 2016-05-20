@@ -2,10 +2,8 @@ from __future__ import absolute_import
 
 import numpy as np
 import theano
-import theano.tensor as T
-from keras import initializations, regularizers, constraints
-
 from keras import backend as K
+from keras import initializations, regularizers, constraints
 from keras.engine import Layer
 
 

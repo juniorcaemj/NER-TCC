@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import gzip
 
-from keras.layers.core import Dropout, TimeDistributedDense, Dense, Flatten
+from keras.layers.core import Dropout, Dense
 from keras.layers.recurrent import *
 from keras.models import *
-from keras.preprocessing.sequence import pad_sequences
 from keras.utils import np_utils
 
 import PortEvalReader

@@ -3,17 +3,15 @@ import gzip
 import time
 from pprint import pprint
 
-from keras.engine import Merge
-from keras.layers import Embedding, Flatten, TimeDistributed
-from keras.layers.convolutional import Convolution2D, MaxPooling2D, Convolution1D, MaxPooling1D
-from keras.layers.core import Dropout, Dense, Permute, Reshape
+from keras.layers import Embedding, TimeDistributed
+from keras.layers.convolutional import Convolution1D, MaxPooling1D
+from keras.layers.core import Dense, Reshape
 from keras.layers.recurrent import *
 from keras.models import *
 from keras.utils import np_utils
 from sklearn.metrics import f1_score
 
 import PortEvalReader
-from KerasLayer.FixedEmbedding import FixedEmbedding
 
 trainFile = 'corpus/corpus_First_HAREM.txt'
 #trainFile = 'corpus/corpus_paramopama+second_harem.txt'
@@ -76,7 +74,7 @@ train_x, train_y, train_x_char, char2Idx = PortEvalReader.createNumpyArrayAndCha
 test_x, test_y, test_x_char, temp = PortEvalReader.createNumpyArrayAndCharData(test_sentences, windowSize, word2Idx, label2Idx, max_charlen)
 
 max_charlen_padded = max_charlen + windowSize*2
-char_vocab_size = len(char2Idx)+1
+char_vocab_size = len(char2Idx)+3
 
 def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
     assert len(inputs) == len(targets)
@@ -156,7 +154,7 @@ model.add(TimeDistributed(Convolution1D(nb_filter=n_filters, filter_length=char_
 model.add(TimeDistributed(MaxPooling1D(pool_length=max_charlen)))
 model.add(Reshape((n_in, n_filters)))
 model.add(LSTM(output_dim=n_hidden, init='glorot_uniform', activation='tanh',
-                batch_input_shape=(None,n_in,char_embedding_size),return_sequences=True),)
+                batch_input_shape=(None,n_in,n_filters),return_sequences=True),)
 #model.add(Dropout(0.5))
 model.add(LSTM(output_dim=n_hidden, init='glorot_uniform', activation='tanh',batch_input_shape=(None,n_in,n_hidden)),)
 model.add(Dense(output_dim=n_out, activation='softmax'))

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import gzip
-
 import time
+
 from keras.layers import Convolution2D
 from keras.layers import Embedding
 from keras.layers import MaxPooling2D
-from keras.layers.core import Dropout, TimeDistributedDense, Dense, Flatten, Reshape, Permute, Activation
+from keras.layers.core import Dropout, TimeDistributedDense, Reshape, Permute, Activation
 from keras.layers.recurrent import *
 from keras.models import *
 from keras.preprocessing.sequence import pad_sequences

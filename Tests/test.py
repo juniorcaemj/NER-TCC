@@ -1,8 +1,9 @@
 import gzip
+import unittest
+
+import numpy as np
 
 import PortEvalReader
-import unittest
-import numpy as np
 
 class Testes(unittest.TestCase):
 
@@ -12,7 +13,8 @@ class Testes(unittest.TestCase):
         vocabPath =  '../embeddings/Portuguese.vocab.gz'
         self.train_sentences, self.max_charlen = PortEvalReader.readFile2(self.trainFile)
         self.test_sentences, self.max_charlen2 = PortEvalReader.readFile2(self.testFile)
-        self.windowSize = 3
+        self.windowSize = 2
+        self.word_context_window = 5
         self.embeddings, self.word2Idx = self._read_word_embeddings(vocabPath)
         self.label2Idx = self._setLabel2Idx()
 
@@ -51,6 +53,12 @@ class Testes(unittest.TestCase):
                                                                                        self.windowSize, self.word2Idx,
                                                                                        self.label2Idx,
                                                                                        self.max_charlen)
+        self.assertEqual(train_x_char.shape[1], (self.max_charlen+self.windowSize*2) * self.word_context_window)
+        self.assertEqual(test_x_char.shape[1], (self.max_charlen+self.windowSize*2) * self.word_context_window)
+        #self.assertRaises(Exception)
+        '''for i in xrange(0,len(train_x_char)):
+            self.assertEqual(train_x_char[i][0:3],[1,1,1])
+            self.assertEqual(train_x_char[i][-3:],[2,2,2])'''
 
 if __name__ == '__main__':
     unittest.main()

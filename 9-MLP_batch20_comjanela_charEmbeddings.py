@@ -5,15 +5,14 @@ from pprint import pprint
 
 from keras.engine import Merge
 from keras.layers import Embedding, Flatten, TimeDistributed
-from keras.layers.convolutional import Convolution2D, MaxPooling2D, Convolution1D, MaxPooling1D
-from keras.layers.core import Dropout, Dense, Permute, Reshape
+from keras.layers.convolutional import Convolution1D, MaxPooling1D
+from keras.layers.core import Dense, Reshape
 from keras.layers.recurrent import *
 from keras.models import *
 from keras.utils import np_utils
 from sklearn.metrics import f1_score
 
 import PortEvalReader
-from KerasLayer.FixedEmbedding import FixedEmbedding
 
 trainFile = 'corpus/corpus_First_HAREM.txt'
 #trainFile = 'corpus/corpus_paramopama+second_harem.txt'

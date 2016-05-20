@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 import gzip
-
 import time
+
 from keras.layers import Embedding, TimeDistributed
-from keras.layers.core import Dropout, TimeDistributedDense, Dense, Flatten, Merge
+from keras.layers.core import Dense, Merge
 from keras.layers.recurrent import *
 from keras.models import *
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import np_utils
 
 import PortEvalReader
-from KerasLayer.FixedEmbedding import FixedEmbedding
 
 #HYPER PARAMETERS
-from KerasLayer.FixedEmbeddingWithMask1 import FixedEmbeddingWithMask1
 
 windowSize = 3 # 3 to the left, 3 to the right
 number_of_epochs = 50
